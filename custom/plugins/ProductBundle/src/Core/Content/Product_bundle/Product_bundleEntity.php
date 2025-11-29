@@ -2,46 +2,69 @@
 
 namespace ProductBundle\Core\Content\Product_bundle;
 
+use ProductBundle\Core\Content\Product_bundle_assigned_products\Product_bundle_assigned_productsCollection;
+use ProductBundle\Core\Content\Product_bundle_translation\Product_bundle_translationCollection;
+use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
 class Product_bundleEntity extends Entity
 {
-    use EntityIdTrait;
+  use EntityIdTrait;
 
-    protected ?string $name;
+  protected ?string $productId = null;
+  protected ?ProductEntity $product = null;
+  protected ?string $title = null;
+  protected ?Product_bundle_assigned_productsCollection $assignedProducts = null;
+  protected ?Product_bundle_translationCollection $translations = null;
 
-    protected ?string $description;
+  public function getProductId(): ?string
+  {
+    return $this->productId;
+  }
 
-    protected bool $active;
+  public function setProductId(string $productId): void
+  {
+    $this->productId = $productId;
+  }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
+  public function getProduct(): ?ProductEntity
+  {
+    return $this->product;
+  }
 
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
-    }
+  public function setProduct(ProductEntity $product): void
+  {
+    $this->product = $product;
+  }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
+  public function getTitle(): ?string
+  {
+    return $this->title;
+  }
 
-    public function setDescription(?string $description): void
-    {
-        $this->description = $description;
-    }
+  public function setTitle(?string $title): void
+  {
+    $this->title = $title;
+  }
 
-    public function isActive(): bool
-    {
-        return $this->active;
-    }
+  public function getAssignedProducts(): ?Product_bundle_assigned_productsCollection
+  {
+    return $this->assignedProducts;
+  }
 
-    public function setActive(bool $active): void
-    {
-        $this->active = $active;
-    }
+  public function setAssignedProducts(Product_bundle_assigned_productsCollection $assignedProducts): void
+  {
+    $this->assignedProducts = $assignedProducts;
+  }
+
+  public function getTranslations(): ?Product_bundle_translationCollection
+  {
+    return $this->translations;
+  }
+
+  public function setTranslations(Product_bundle_translationCollection $translations): void
+  {
+    $this->translations = $translations;
+  }
 }

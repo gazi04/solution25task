@@ -2,46 +2,67 @@
 
 namespace ProductBundle\Core\Content\Product_bundle_assigned_products;
 
+use ProductBundle\Core\Content\Product_bundle\Product_bundleEntity;
+use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
 class Product_bundle_assigned_productsEntity extends Entity
 {
-    use EntityIdTrait;
+  use EntityIdTrait;
 
-    protected ?string $name;
+  protected ?string $productBundleId = null;
+  protected ?string $productId = null;
+  protected int $quantity = 1;
+  protected ?Product_bundleEntity $productBundle = null;
+  protected ?ProductEntity $product = null;
 
-    protected ?string $description;
+  public function getProductBundleId(): ?string
+  {
+    return $this->productBundleId;
+  }
 
-    protected bool $active;
+  public function setProductBundleId(string $productBundleId): void
+  {
+    $this->productBundleId = $productBundleId;
+  }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
+  public function getProductId(): ?string
+  {
+    return $this->productId;
+  }
 
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
-    }
+  public function setProductId(string $productId): void
+  {
+    $this->productId = $productId;
+  }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
+  public function getQuantity(): int
+  {
+    return $this->quantity;
+  }
 
-    public function setDescription(?string $description): void
-    {
-        $this->description = $description;
-    }
+  public function setQuantity(int $quantity): void
+  {
+    $this->quantity = $quantity;
+  }
 
-    public function isActive(): bool
-    {
-        return $this->active;
-    }
+  public function getProductBundle(): ?Product_bundleEntity
+  {
+    return $this->productBundle;
+  }
 
-    public function setActive(bool $active): void
-    {
-        $this->active = $active;
-    }
-}
+  public function setProductBundle(Product_bundleEntity $productBundle): void
+  {
+    $this->productBundle = $productBundle;
+  }
+
+  public function getProduct(): ?ProductEntity
+  {
+    return $this->product;
+  }
+
+  public function setProduct(ProductEntity $product): void
+  {
+    $this->product = $product;
+  }}

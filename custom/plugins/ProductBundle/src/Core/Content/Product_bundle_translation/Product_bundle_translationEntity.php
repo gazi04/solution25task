@@ -2,46 +2,45 @@
 
 namespace ProductBundle\Core\Content\Product_bundle_translation;
 
+use ProductBundle\Core\Content\Product_bundle\Product_bundleEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
 class Product_bundle_translationEntity extends Entity
 {
-    use EntityIdTrait;
+  use EntityIdTrait;
 
-    protected ?string $name;
+  protected ?string $productBundleId = null;
+  protected ?string $title = null;
+  protected ?Product_bundleEntity $productBundle = null;
 
-    protected ?string $description;
+  public function getProductBundleId(): ?string
+  {
+    return $this->productBundleId;
+  }
 
-    protected bool $active;
+  public function setProductBundleId(string $productBundleId): void
+  {
+    $this->productBundleId = $productBundleId;
+  }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
+  public function getTitle(): ?string
+  {
+    return $this->title;
+  }
 
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
-    }
+  public function setTitle(?string $title): void
+  {
+    $this->title = $title;
+  }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
+  public function getProductBundle(): ?Product_bundleEntity
+  {
+    return $this->productBundle;
+  }
 
-    public function setDescription(?string $description): void
-    {
-        $this->description = $description;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->active;
-    }
-
-    public function setActive(bool $active): void
-    {
-        $this->active = $active;
-    }
+  public function setProductBundle(Product_bundleEntity $productBundle): void
+  {
+    $this->productBundle = $productBundle;
+  }
 }
