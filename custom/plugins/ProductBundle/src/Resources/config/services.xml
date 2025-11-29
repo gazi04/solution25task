@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="ProductBundle\Command\ExampleCommand">
+            <tag name="console.command"/>
+        </service>
+
+        <service id="ProductBundle\Storefront\Controller\ExampleController" public="true">
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="ProductBundle\Core\Content\Example\SalesChannel\ExampleRoute">
+            <argument type="service" id="product.repository"/>
+        </service>
+
+        <service id="ProductBundle\Core\Content\Product_bundle\Product_bundleDefinition">
+            <tag name="shopware.entity.definition" entity="product_bundle" />
+        </service>
+
+        <service id="ProductBundle\Core\Content\Product_bundle_translation\Product_bundle_translationDefinition">
+            <tag name="shopware.entity.definition" entity="product_bundle_translation" />
+        </service>
+
+        <service id="ProductBundle\Core\Content\Product_bundle_assigned_products\Product_bundle_assigned_productsDefinition">
+            <tag name="shopware.entity.definition" entity="product_bundle_assigned_products" />
+        </service>
+
+        <service id="ProductBundle\Service\CustomFieldsInstaller">
+            <argument type="service" id="custom_field_set.repository"/>
+            <argument type="service" id="custom_field_set_relation.repository"/>
+        </service>
+
+    </services>
+</container>
