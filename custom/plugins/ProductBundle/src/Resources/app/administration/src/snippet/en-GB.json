@@ -4,5 +4,19 @@
             "mainMenuItemGeneral": "My custom module",
             "descriptionTextModule": "Manage this custom module here"
         }
+    },
+    "product-bundle": {
+        "detail": {
+            "success": {
+                "save": "Bundle saved successfully"
+            },
+            "error": {
+                "load": "Error loading bundle",
+                "save": "Error saving bundle"
+            },
+            "warning": {
+                "productExists": "This product is already in the bundle"
+            }
+        }
     }
 }

@@ -1,11 +1,108 @@
 <sw-card title="Product Bundle Configuration" :isLoading="isLoading">
-    <sw-text-field
-        label="Bundle Title"
-        v-model="productBundle.title"
-        placeholder="Enter a title for this bundle...">
-    </sw-text-field>
+    
+    <template v-if="bundle">
+        
+        <sw-text-field
+            label="Bundle Title"
+            v-model="bundle.title"
+            placeholder="Enter a title for this bundle...">
+        </sw-text-field>
 
-    <sw-alert variant="info">
-        Product selection grid will go here.
-    </sw-alert>
+        <sw-divider></sw-divider>
+
+        <sw-container columns="repeat(2, 1fr)" gap="0 30px">
+            <sw-entity-single-select
+                label="Select Product"
+                v-model="newProductId"
+                entity="product"
+                :criteria="productCriteria"
+                labelProperty="name"
+                valueProperty="id"
+                placeholder="Search and select a product...">
+            </sw-entity-single-select>
+
+            <sw-number-field
+                label="Quantity"
+                v-model="newQuantity"
+                :min="1"
+                :step="1">
+            </sw-number-field>
+        </sw-container>
+
+        <sw-button
+            variant="primary"
+            @click="addProduct"
+            :disabled="!newProductId || isLoading || !bundle"
+            style="margin-top: 10px;">
+            Add Product to Bundle
+        </sw-button>
+
+        <sw-divider style="margin: 20px 0;"></sw-divider>
+
+        <template v-if="assignedProducts && assignedProducts.length > 0">
+            <sw-data-grid
+                :dataSource="assignedProducts"
+                :columns="assignedProductsColumns"
+                :showActions="true"
+                :showSelection="false"
+                @inline-edit-save="onInlineEditSave"
+                @inline-edit-cancel="onInlineEditCancel">
+                
+                <template #column-product="{ item }">
+                    <template v-if="item.product">
+                        {{ item.product.name || item.productId }}
+                    </template>
+                    <template v-else>
+                        {{ item.productId }}
+                    </template>
+                </template>
+
+                <template #column-quantity="{ item, isInlineEdit }">
+                    <template v-if="isInlineEdit">
+                        <sw-number-field
+                            v-model="item.quantity"
+                            :min="1"
+                            :step="1">
+                        </sw-number-field>
+                    </template>
+                    <template v-else>
+                        {{ item.quantity }}
+                    </template>
+                </template>
+
+                <template #actions="{ item }">
+                    <sw-context-menu-item
+                        variant="danger"
+                        @click="removeProduct(item)">
+                        Remove
+                    </sw-context-menu-item>
+                </template>
+            </sw-data-grid>
+        </template>
+
+        <sw-empty-state
+            v-else
+            title="No products assigned"
+            subline="Add products to this bundle using the form above">
+        </sw-empty-state>
+
+        <sw-divider style="margin: 20px 0;"></sw-divider>
+
+        <sw-button
+            variant="primary"
+            @click="saveAll"
+            :disabled="isLoading || !product || !product.id">
+            Save Bundle
+        </sw-button>
+
+    </template>
+
+    <sw-loader v-else-if="isLoading"></sw-loader>
+
+    <sw-empty-state
+        v-else
+        title="Initializing bundle..."
+        subline="Please wait...">
+    </sw-empty-state>
+
 </sw-card>

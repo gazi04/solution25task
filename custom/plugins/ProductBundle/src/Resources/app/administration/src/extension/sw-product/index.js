@@ -12,8 +12,9 @@ Shopware.Module.register('sw-product-bundle-route', {
         name: 'sw.product.detail.bundle',
         path: '/sw/product/detail/:id/bundle', // The URL path
         component: 'sw-product-detail-bundle', // The component we created in Step 2
+        isChildren: true,
         meta: {
-          parentPath: 'sw.product.index' // Back button goes to product list
+          parentPath: 'sw.product.index', // Back button goes to product list
         }
       });
     }
