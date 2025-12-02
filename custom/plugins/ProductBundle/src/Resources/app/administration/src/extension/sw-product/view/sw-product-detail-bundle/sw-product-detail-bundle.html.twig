@@ -13,7 +13,7 @@
         <sw-container columns="repeat(2, 1fr)" gap="0 30px">
             <sw-entity-single-select
                 label="Select Product"
-                v-model="newProductId"
+                v-model:value="newProductId"
                 entity="product"
                 :criteria="productCriteria"
                 labelProperty="name"
@@ -39,51 +39,54 @@
 
         <sw-divider style="margin: 20px 0;"></sw-divider>
 
+        <h3>Assigned Products</h3>
+
         <template v-if="assignedProducts && assignedProducts.length > 0">
             <sw-data-grid
                 :dataSource="assignedProducts"
                 :columns="assignedProductsColumns"
-                :showActions="true"
                 :showSelection="false"
+                :showActions="true"
                 @inline-edit-save="onInlineEditSave"
                 @inline-edit-cancel="onInlineEditCancel">
-                
+
                 <template #column-product="{ item }">
-                    <template v-if="item.product">
-                        {{ item.product.name || item.productId }}
-                    </template>
-                    <template v-else>
-                        {{ item.productId }}
-                    </template>
+                    <span v-if="item.product && item.product.name">
+                        {{ item.product.name }}
+                    </span>
+                    <span v-else-if="item.product && item.product.translated">
+                        {{ item.product.translated.name }}
+                    </span>
+                    <span v-else class="text-muted">
+                        (Product ID: {{ item.productId | truncate(8) }})
+                    </span>
                 </template>
 
                 <template #column-quantity="{ item, isInlineEdit }">
-                    <template v-if="isInlineEdit">
-                        <sw-number-field
-                            v-model="item.quantity"
-                            :min="1"
-                            :step="1">
-                        </sw-number-field>
-                    </template>
-                    <template v-else>
+                    <sw-number-field
+                        v-if="isInlineEdit"
+                        v-model="item.quantity"
+                        size="small"
+                        :min="1">
+                    </sw-number-field>
+                    <span v-else>
                         {{ item.quantity }}
-                    </template>
+                    </span>
                 </template>
 
                 <template #actions="{ item }">
-                    <sw-context-menu-item
-                        variant="danger"
-                        @click="removeProduct(item)">
-                        Remove
+                    <sw-context-menu-item variant="danger" @click="removeProduct(item)">
+                        Delete
                     </sw-context-menu-item>
                 </template>
+
             </sw-data-grid>
         </template>
 
         <sw-empty-state
             v-else
-            title="No products assigned"
-            subline="Add products to this bundle using the form above">
+            title="No products assigned yet"
+            subline="Use the form above to add products to this bundle.">
         </sw-empty-state>
 
         <sw-divider style="margin: 20px 0;"></sw-divider>
