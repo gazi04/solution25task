@@ -1,0 +1,22 @@
+{
+  "hash": "a7318ea8",
+  "configHash": "bfb6773e",
+  "lockfileHash": "418bcfd5",
+  "browserHash": "39d53dbb",
+  "optimized": {
+    "@shopware-ag/meteor-admin-sdk": {
+      "src": "../../../node_modules/@shopware-ag/meteor-admin-sdk/es/index.js",
+      "file": "@shopware-ag_meteor-admin-sdk.js",
+      "fileHash": "0f053e09",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "repository-2UA35UII": {
+      "file": "repository-2UA35UII.js"
+    },
+    "chunk-AHHNNYI2": {
+      "file": "chunk-AHHNNYI2.js"
+    }
+  }
+}

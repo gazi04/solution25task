@@ -1,0 +1,25 @@
+{
+  "hash": "a220c1f2",
+  "configHash": "4f782896",
+  "lockfileHash": "f3603e7d",
+  "browserHash": "ed26d099",
+  "optimized": {
+    "@stripe/stripe-js": {
+      "src": "../../../node_modules/@stripe/stripe-js/dist/stripe.esm.js",
+      "file": "@stripe_stripe-js.js",
+      "fileHash": "298f6343",
+      "needsInterop": false
+    },
+    "vue": {
+      "src": "../../../../../../../../../../vendor/shopware/administration/Resources/app/administration/node_modules/.shopware-vite-plugin-vue-globals/vue.js",
+      "file": "vue.js",
+      "fileHash": "d978dc6e",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-BUSYA2B4": {
+      "file": "chunk-BUSYA2B4.js"
+    }
+  }
+}
