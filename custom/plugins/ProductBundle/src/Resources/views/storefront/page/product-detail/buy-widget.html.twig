@@ -1,0 +1,64 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/buy-widget.html.twig' %}
+
+{# --- BADGE SECTION (Using Order Number Block for better positioning) --- #}
+{% block page_product_detail_ordernumber %}
+    {{ parent() }}
+    
+    {# 1. Try to find the bundle in both possible locations #}
+    {% set bundle = page.extensions.productBundle %}
+    {% if not bundle and page.product.extensions.productBundle %}
+        {% set bundle = page.product.extensions.productBundle %}
+    {% endif %}
+
+    {# 2. Debugging Comment (Check Page Source to see this) #}
+    {% if bundle %}
+        <div class="product-detail-bundle-badge mb-3">
+            <span class="badge badge-info" style="background-color: #007bff; color: white; padding: 5px 10px; border-radius: 4px;">
+                Bundle Product
+            </span>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{# --- LIST SECTION (Using Buy Form Block) --- #}
+{% block page_product_detail_buy_form %}
+    {{ parent() }}
+
+    {# 1. Define bundle again for this block scope #}
+    {% set bundle = page.extensions.productBundle %}
+    {% if not bundle and page.product.extensions.productBundle %}
+        {% set bundle = page.product.extensions.productBundle %}
+    {% endif %}
+
+    {# 2. Check for assigned products #}
+    {% if bundle and bundle.assignedProducts and bundle.assignedProducts|length > 0 %}
+        
+        <div class="product-bundle-list-container mt-4 p-3 bg-light rounded border">
+            <h6 class="font-weight-bold mb-3">
+                {{ bundle.translated.title|default('Bundle Contents') }}
+            </h6>
+
+            <ul class="list-group list-group-flush bg-transparent">
+                {% for assignment in bundle.assignedProducts %}
+                    <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center px-0 py-1">
+                        
+                        <span>
+                            {# Handle Product Name Logic #}
+                            {% if assignment.product %}
+                                {{ assignment.product.translated.name|default(assignment.product.name) }}
+                            {% else %}
+                                Unknown Product ({{ assignment.productId|slice(0,8) }}...)
+                            {% endif %}
+                        </span>
+
+                        <span class="badge badge-secondary badge-pill">
+                            x{{ assignment.quantity }}
+                        </span>
+
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
